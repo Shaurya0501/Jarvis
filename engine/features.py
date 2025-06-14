@@ -1,6 +1,9 @@
 from playsound import playsound
 import os
+import eel 
 
+
+@eel.expose
 def playAssistantSound():
     music_dir = os.path.join("www", "assets", "audio", "audio.mp3")
     if os.path.exists(music_dir):
