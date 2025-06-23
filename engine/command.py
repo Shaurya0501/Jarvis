@@ -1,6 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 import eel
+import time
 
 eel.init('web')  # folder containing HTML
 
@@ -10,12 +11,12 @@ def speak(text):
         voices = engine.getProperty('voices')
         engine.setProperty('voice', voices[1].id)  # female voice
         engine.setProperty('rate', 174)
+        eel.displayMessage(text)
         engine.say(text)
         engine.runAndWait()
     except Exception as e:
         print(f"TTS Error: {e}")
 
-@eel.expose
 def takecommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
@@ -36,11 +37,28 @@ def takecommand():
         query = r.recognize_google(audio, language='en-in')
         print(f'User said: {query}')
         eel.DisplayMessage(query)
+        time.sleep(2)
     except Exception as e:
         print("Recognition error:", e)
         return ""
 
-    speak(query)
     eel.ShowHood()
     return query.lower()
 
+@eel.expose
+def allCommands():
+
+    query=takecommand()
+    print(query)
+
+    if "open" in query:
+        from engine.features import openCommand
+        openCommand(query)
+
+    elif "on youtube":
+        from engine.features import PlayYoutube
+        PlayYoutube(query)
+    else:
+        print("not run")
+
+    eel.showHood()
