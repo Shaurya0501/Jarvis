@@ -11,9 +11,16 @@ cursor.execute(query)
 # cursor.execute(query)
 # conn.commit()
 
-query="CREATE TABLE IF NOT EXISTS wb_command(id integer primary key, name VARCHAR(100), url VARCHAR(1000))"
-cursor.execute(query)
+# query="CREATE TABLE IF NOT EXISTS wb_command(id integer primary key, name VARCHAR(100), url VARCHAR(1000))"
+# cursor.execute(query)
 
-query="INSERT INTO wb_command VALUES (null,'youtube','https://www.youtube.com/')"
-cursor.execute(query)
-conn.commit()
+# query="INSERT INTO wb_command VALUES (null,'youtube','https://www.youtube.com/')"
+# cursor.execute(query)
+# conn.commit()
+
+#testing the module
+# testing module
+app_name = "mernstack"
+cursor.execute('SELECT path FROM sys_command WHERE name IN (?)', (app_name,))
+results = cursor.fetchall()
+print(results[0][0])
